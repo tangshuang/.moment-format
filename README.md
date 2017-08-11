@@ -130,17 +130,22 @@ Get COleDateTime/OLE Automation date of datetime.
 
 ### oadate2time(value)
 
-Get milliseconds of given COleDateTime/OLE Automation date. The milliseconds is based on UTC+0 not based on computer system local timezone. If you want to get datetime with local timezone, use utc2date:
+Get milliseconds of given COleDateTime/OLE Automation date:
 
 ```
 let mstime = oadate2time(oadate)
-let datetime = utc2date(mstime, 'YYYY-MM-DD HH:mm:ss')
+let datetime = date(mstime, 'YYYY-MM-DD HH:mm:ss')
 let dst = date2dst(datetime)
 ```
 
 ### oadate2date(value, formatter)
 
-Get datetime of given COleDateTime/OLE Automation date.
+Get datetime of given COleDateTime/OLE Automation date. The previous code exmaple for oadate2time can be convert to:
+
+```
+let datetime = oadate2date(oadate, 'YYYY-MM-DD HH:mm:ss')
+let dst = date2dst(datetime)
+```
 
 ### dateAvsB(a, b)
 

@@ -35,7 +35,7 @@ export function format(datetime, formatter, givenFormatter) {
 }
 
 /**
- * @desc get a local datetime with given formatter, if not timezone, use current machine timezone
+ * @desc get a local datetime with given formatter, if no timezone, use current machine timezone
  * @param string|Date datetime: given datetime, can be string or Date instance, if not given, current time will be used
  * @param string formatter: output datetime formatter
  */

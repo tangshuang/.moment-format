@@ -138,6 +138,10 @@ let datetime = utc2date(mstime, 'YYYY-MM-DD HH:mm:ss')
 let dst = date2dst(datetime)
 ```
 
+### oadate2date(value, formatter)
+
+Get datetime of given COleDateTime/OLE Automation date.
+
 ### dateAvsB(a, b)
 
 Compare a to b, if a > b return 1, if a < b return -1, if a = b return 0.

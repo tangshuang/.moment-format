@@ -78,7 +78,7 @@ export function timezoneOffset() {
 /**
  * @desc get local timezone offset, ignore daylight saving time
  * so even in different seasons, it will get the same value
- * @return number: minutes of timezone offset, i.e. US -04:00 will get 240
+ * @return number: minutes of timezone offset, i.e. US -04:00 will get -240
  */
 export function timezoneOffsetSTD() {
   let d = new Date()

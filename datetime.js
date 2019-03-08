@@ -23,13 +23,13 @@ export function format(datetime, formatter, givenFormatter) {
   else {
     // big problem: we do not know whether timezone has not been given or it is +00:00
     // if its utc time is the same with itself, it means timezone has been given
-    let u = utc(datetime, 'YYYY-MM-DD HH:mm:ss')
-    let t = moment(datetime).parseZone(datetime).format('YYYY-MM-DD HH:mm:ss')
+    let u = utc(datetime, 'YYYY-MM-DD HH:mm:ss', givenFormatter)
+    let t = moment(datetime, givenFormatter).parseZone(datetime).format('YYYY-MM-DD HH:mm:ss')
     if (u === t) {
       return moment(datetime, givenFormatter).utc().format(formatter)
     }
     else {
-      return moment(datetime).format(formatter)
+      return moment(datetime, givenFormatter).format(formatter)
     }
   }
 }

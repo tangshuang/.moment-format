@@ -14,22 +14,22 @@ import moment from 'moment'
    2. format(your_date, 'YYYY-MM-DD HH:mm:ss', 'DD/MM/YYYY HH,mm,ss')
  */
 export function format(datetime, formatter, givenFormatter) {
-  let localTimezoneOffset = timezoneOffset()
-  let givenTimezoneOffset = moment.parseZone(datetime).utcOffset()
+  let forceFormat = !!givenFormatter
+  let givenTimezoneOffset = moment.parseZone(datetime, givenFormatter, forceFormat).utcOffset()
 
   if (givenTimezoneOffset !== 0) {
-    return moment(datetime, givenFormatter).utcOffset(givenTimezoneOffset).format(formatter)
+    return moment(datetime, givenFormatter, forceFormat).utcOffset(givenTimezoneOffset).format(formatter)
   }
   else {
     // big problem: we do not know whether timezone has not been given or it is +00:00
     // if its utc time is the same with itself, it means timezone has been given
-    let u = utc(datetime, 'YYYY-MM-DD HH:mm:ss', givenFormatter)
-    let t = moment(datetime, givenFormatter).parseZone(datetime).format('YYYY-MM-DD HH:mm:ss')
+    let u = moment(datetime, givenFormatter, forceFormat).utc().format('YYYY-MM-DD HH:mm:ss')
+    let t = moment(datetime, givenFormatter, forceFormat).parseZone(datetime).format('YYYY-MM-DD HH:mm:ss')
     if (u === t) {
-      return moment(datetime, givenFormatter).utc().format(formatter)
+      return moment(datetime, givenFormatter, forceFormat).utc().format(formatter)
     }
     else {
-      return moment(datetime, givenFormatter).format(formatter)
+      return moment(datetime, givenFormatter, forceFormat).format(formatter)
     }
   }
 }
@@ -40,7 +40,8 @@ export function format(datetime, formatter, givenFormatter) {
  * @param string formatter: output datetime formatter
  */
 export function date(datetime, formatter, givenFormatter) {
-  return moment(datetime, givenFormatter).format(formatter)
+  let forceFormat = !!givenFormatter
+  return moment(datetime, givenFormatter, forceFormat).format(formatter)
 }
 
 /**
@@ -49,7 +50,8 @@ export function date(datetime, formatter, givenFormatter) {
  * @param string formatter: target utc datetime formatter
  */
 export function utc(datetime, formatter, givenFormatter) {
-  return moment(datetime, givenFormatter).utc().format(formatter)
+  let forceFormat = !!givenFormatter
+  return moment(datetime, givenFormatter, forceFormat).utc().format(formatter)
 }
 
 /**
@@ -99,7 +101,8 @@ export function time2dst(mstime) {
  * @desc convert the passed datetime to be a local timezone datetime, considering daylight saving time
  */
 export function date2dst(datetime, formatter, givenFormatter) {
-  let time = moment(datetime, givenFormatter).valueOf()
+  let forceFormat = !!givenFormatter
+  let time = moment(datetime, givenFormatter, forceFormat).valueOf()
   let localtime = time2dst(time)
   return date(localtime, formatter)
 }

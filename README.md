@@ -1,5 +1,7 @@
 # Moment Format
 
+> Deprecated! use `import { formatDate } from 'ts-fns'` instead.
+
 A library using momentjs to format datetime.
 
 ## Usage
